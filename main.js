@@ -47,6 +47,7 @@ function gameRule(num) {
     if(computerNum == num) {
         gameHint.innerHTML ="That's right"
         goBtn.disabled=true;
+        return;
     } else if(computerNum != num) {
         computerNum > num? gameHint.innerHTML ="UP" : gameHint.innerHTML ="Down";
     }
@@ -64,7 +65,6 @@ function gameRule(num) {
 
     let cssStatus = 100-(gameCount*20);
     alcohol.style.transform=`translateY(${cssStatus}%)`;
-
 }
 
 function gameRest() {
