@@ -3,12 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>숫자 맞추기 게임</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>자바스크립트 스터디 1기 - 도메인 만들어보기 __박샘</h1>
-    <p>도메인을 만들었습니다!!!!!</p>
+    <!-- <h1>코알누 대학 엠티</h1> -->
     
+    <div class="wrap">
+        <div class="game_box">
+            <div class="left">
+                <span class="game_hint"></span>
+                <span class="cup">
+                    <div class="alcohol">
+                        <div class="wave-one"></div>
+                        <div class="wave-two"></div>
+                    </div>
+                </span>
+            </div>
+            <div class="right">
+                <h2>
+                    술게임, 죽음의 <br>
+                    <b>UP</b> & <b>DOWN</b><br>
+                    <span>죽기 싫다면 맞춰라</span>
+                </h2>
+
+                <p class="game_count">
+                    <span>남은기회</span>
+                    <b class="count"></b>
+                </p>
+                <div class="input_box">
+                    <input type="number" min="1" max="100" placeholder="1" class="user_number">
+                    <button type="button" class="play_btn">GO</button>
+                    <p>1부터 100까지 숫자를 입력하세요.</p>
+                    <button type="button" class="reset_btn">Reset</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    
+    
+
+    <script src="main.js"></script>
 </body>
 </html>
