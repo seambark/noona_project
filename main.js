@@ -10,16 +10,16 @@
 // 유저가 1~100 범위 밖에 숫자를 입력하면 알려준다. 기회를 깍지 않는다.
 // 유저가 이미 입력한 숫자를 또 입력하면 아렬준다. 기회를 깍지 않는다.
 
-
-
 let computerNum=0;
 let gameLife=5;
 let gameCount=0;
 let historyNum=[];
 let goBtn = document.querySelector(".play_btn");
 let resetBtn = document.querySelector(".reset_btn");
-let gameHint = document.querySelector(".game_hint");
+let gameHint = document.querySelector(".game_text .hint");
 let userNumber = document.querySelector(".user_number");
+let alcohol = document.querySelector(".alcohol");
+let gameLeft = document.querySelector(".left");
 
 goBtn.addEventListener("click",play)
 resetBtn.addEventListener("click",gameRest)
@@ -33,7 +33,11 @@ function pickRandomNum() {
 }
 
 function gameRule(num) {
-    let alcohol = document.querySelector(".alcohol");
+    let classCheck = gameLeft.classList.contains("on");
+
+    if(classCheck == false) {
+        gameLeft.classList.add("on");
+    }
 
     if(historyNum.includes(num)) {
         alert(num+"은 이미 입력한 값입니다.")
@@ -52,11 +56,15 @@ function gameRule(num) {
 
     if(gameCount >= gameLife) {
         goBtn.disabled=true;
+        gameLeft.classList.add("die");
+        gameLeft.classList.remove("on");
     }
     
     historyNum.push(num);
 
-    console.log(historyNum)
+    let cssStatus = 100-(gameCount*20);
+    alcohol.style.transform=`translateY(${cssStatus}%)`;
+
 }
 
 function gameRest() {
@@ -66,6 +74,10 @@ function gameRest() {
     gameHint.innerHTML=""
     goBtn.disabled=false;
     userNumber.value="";
+    alcohol.style.transform=`translateY(102%)`;
+    gameLeft.classList.remove("die");
+    gameLeft.classList.remove("on");
+
     counter();
 }
 
@@ -78,7 +90,6 @@ function play() {
     let userNumberVal = userNumber.value;
 
     if(userNumberVal >=1 && userNumberVal <= 100 ) {
-        console.log(userNumberVal)
         gameRule(userNumberVal)
     } else {
         alert("1~100 사이의 숫자를 입력하세요.")
