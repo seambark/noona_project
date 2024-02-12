@@ -31,6 +31,9 @@ let dateString = year + '-' + month  + '-' + day;
 addBtn.addEventListener("click", addList);
 todoList.addEventListener("click", listStatus);
 tab.addEventListener("click", tabList)
+addInput.addEventListener("focus",function(){
+    addInput.value="";
+})
 
 function randomId() {
     return '-' + Math.random().toString(36).substr(2,9);
