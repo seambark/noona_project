@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do List</title>
+    <link rel="stylesheet" href="todo.css">
+</head>
+<body>
+    <div class="wrap">
+        <div class="todo_area">
+            <h1 class="title">TO DO LIST</h1>
+
+            <div class="todo_add">
+                <input type="text" id="add_input" placeholder="오늘의 할 일은?">
+                <button type="button" id="add_btn">+</button>
+            </div>
+
+            <div class="todo_list">
+                <div class="tab_area">
+                    <ul id="tab">
+                        <li class="on"><button type="button" data-complete="all">전체</button></li>
+                        <li><button type="button" data-complete="ing">진행중</button></li>
+                        <li><button type="button" data-complete="done">완료</button></li>
+                    </ul>
+                </div>
+                <div class="tab_content">
+                    <ul id="list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="todo.js"></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+*{padding: 0; margin: 0; box-sizing: border-box;}
+:root {
+    --border-radius : 2px;
+    --text-dark-color : #28292f;
+    --complete-color : #ff1d1d;
+    --icon-color : #28292f;
+    --memo-bg : #c9e7ff;
+    --memo-complete-bg : #ededed;
+    --point-color : #c9e7ff;
+
+}
+html, body {height: 100%;}
+body {
+  background-color: hsl(231, 8%, 17%);
+  font-size: 16px;
+}
+input {
+    height: 35px;
+    width: calc(100% - 42px);
+    padding: 2px 10px;
+    border-radius:var(--border-radius);
+    border: 0;
+    font-size: 1rem;
+}
+button {
+    border: 0;
+    height: 35px;
+    min-width: 35px;
+    padding: 5px 10px;
+    border-radius:var(--border-radius);
+    font-size: 1rem;
+}
+a {
+    text-decoration: none;
+    color: var(--text-dark-color);
+}
+li {
+    list-style: none;
+}
+.wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 35px 20px 30px;
+}
+.todo_area {
+    width: 100%;
+    
+    
+}
+.todo_area .title {
+    margin: 0 0 25px;
+    color: #ededed;
+    font-size: 40px;
+}
+
+.todo_add { 
+    font-size: 0;
+    vertical-align: top;
+}
+.todo_add #add_btn {
+    margin-left: 7px;
+    vertical-align: top;
+}
+
+.todo_list {
+    padding-top: 40px;
+}
+.tab_area ul {
+    display: flex;
+    border-radius: var(--border-radius);
+}
+.tab_area ul li:first-child button {
+    border-radius: 2px 0 0 2px;
+}
+.tab_area ul li:last-child button {
+    border-radius: 0 2px 2px 0;
+}
+.tab_area button {
+    display: inline-block;
+    min-width: 90px;
+    height: 40px;
+    line-height: 30px;
+    padding: 5px 10px;
+    background:#ededed;
+    color: #848484;
+    border-radius: inherit;
+    cursor: pointer;
+}
+.tab_area .on button {
+    background:var(--point-color);
+    color: var(--text-dark-color);
+    font-weight: bold;
+}
+
+.tab_content {
+    padding: 10px 0 0;
+}
+
+#list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+#list li {
+    margin: 10px 0;
+    padding: 0 10px;
+    width: 20%;
+   
+}
+.memo {
+    position: relative;
+    min-height: 200px;
+    padding: 40px 10px 20px;
+    background-color: var(--memo-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 20px 5px rgba(187, 223, 249, 0.8) inset,
+    2px 2px 4px 2px rgba(0, 0, 0, 0.1);
+}
+.memo.complete {
+    background-color: var(--memo-complete-bg);
+}
+.memo.complete .memo_text {
+    color: #a6a5a5;
+}
+.memo .date {
+    position: absolute;
+    right: 10px;
+    bottom: 7px;
+    font-size: 12px;
+    color: #758b9c;
+}
+.memo .memo_text {
+    word-break: break-all;
+}
+.memo .memo_status {
+    position: absolute;
+    top: 10px;
+    left :10px;
+    width: 100%;
+    background: none;
+    font-size: 12px;
+}
+.memo_check input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+.memo_check input[type="checkbox"]:checked + .check_icon {
+    visibility: visible;
+    opacity: 0.75;
+    transition: all 1s;
+
+}
+.check_icon {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top:0;
+    left: 27px;
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    border-radius: var(--border-radius);
+    border: 2px solid #0075ff;
+    font-style: normal
+}
+.check_icon::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: "완료";/* 참 잘했어요*/
+    width: 100%;
+    color: #0075ff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    
+}
+.delete_btn {
+    position: absolute;
+    top: -2px;
+    right: 15px;
+    font-size: 0;
+    line-height: 0;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    min-width: inherit;
+    background-color: transparent;
+    cursor: pointer;
+}
+.trash_icon {
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    left: 7px;
+    width: 2px;
+    height: 2px;
+    transform: scale(0.8);
+    background-color: var(--icon-color);
+    box-shadow: 
+    4px -2px 0 var(--icon-color),
+    6px -2px 0 var(--icon-color),
+    8px -2px 0 var(--icon-color),
+
+    -2px 0 0 var(--icon-color),
+    2px 0 0 var(--icon-color),
+    4px 0 0 var(--icon-color),
+    6px 0 0 var(--icon-color),
+    8px 0 0 var(--icon-color),
+    10px 0 0 var(--icon-color),
+    12px 0 0 var(--icon-color),
+    14px 0 0 var(--icon-color),
+
+    0 2px 0 var(--icon-color),
+    4px 2px 0 var(--icon-color),
+    8px 2px 0 var(--icon-color),
+    12px 2px 0 var(--icon-color),
+
+    0 4px 0 var(--icon-color),
+    4px 4px 0 var(--icon-color),
+    8px 4px 0 var(--icon-color),
+    12px 4px 0 var(--icon-color),
+
+    0 6px 0 var(--icon-color),
+    4px 6px 0 var(--icon-color),
+    8px 6px 0 var(--icon-color),
+    12px 6px 0 var(--icon-color),
+
+    0 8px 0 var(--icon-color),
+    4px 8px 0 var(--icon-color),
+    8px 8px 0 var(--icon-color),
+    12px 8px 0 var(--icon-color),
+
+    0 10px 0 var(--icon-color),
+    4px 10px 0 var(--icon-color),
+    8px 10px 0 var(--icon-color),
+    12px 10px 0 var(--icon-color),
+
+    0 12px 0 var(--icon-color),
+    4px 12px 0 var(--icon-color),
+    8px 12px 0 var(--icon-color),
+    12px 12px 0 var(--icon-color),
+
+    0 14px 0 var(--icon-color),
+    4px 14px 0 var(--icon-color),
+    8px 14px 0 var(--icon-color),
+    12px 14px 0 var(--icon-color),
+
+    0 16px 0 var(--icon-color),
+    2px 16px 0 var(--icon-color),
+    4px 16px 0 var(--icon-color),
+    6px 16px 0 var(--icon-color),
+    8px 16px 0 var(--icon-color),
+    10px 16px 0 var(--icon-color),
+    12px 16px 0 var(--icon-color)
+    ;
+    font-size: 0;
+    pointer-events: none;
+}
+@media screen and (max-width: 1199px) {
+    #list li {
+        width:33%;
+       
+    }
+}
+@media screen and (max-width: 750px) {
+    #list li {
+        width: 50%;
+       
+    }
+}
