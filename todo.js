@@ -47,7 +47,7 @@ function addList() {
         isComplete: false
     }
     todoListData.push(listData);
-    render();
+    filterData();
 }
 
 function render() {
@@ -85,8 +85,14 @@ function render() {
 
 function toggleComplete(id) {
     let listIndex = todoListData.findIndex((item) => item.id == id);
-    todoListData[listIndex].isComplete = !todoListData[listIndex].isComplete;
-    render();
+    let resultText = todoListData[listIndex].isComplete==false?"메모를 완료 하시겠습니까?":"메모를 진행중으로 변경하시겠습니까?";
+    let result = confirm(resultText);
+
+    if(result) {
+        todoListData[listIndex].isComplete = !todoListData[listIndex].isComplete;
+        filterData();
+    }
+
 }
 
 
@@ -110,10 +116,14 @@ function listStatus(e) {
 }
 
 function deleteList(id) {
+    let result = confirm("메모를 삭제하시겠습니까?");
     let listIndex = todoListData.findIndex((item) => item.id == id);
 
-    todoListData.splice(listIndex,1);
-    render();
+    if(result) {
+        todoListData.splice(listIndex,1);
+        filterData();;
+    }
+
 }
 
 
@@ -122,7 +132,7 @@ function tabList(e) {
     let thisTarget = e.target;
     let thisTag = thisTarget.tagName;
     mode = thisTarget.dataset.complete;
-    filterList=[]
+    
 
     if(thisTag == "BUTTON") {
         
@@ -131,25 +141,27 @@ function tabList(e) {
         }
        
         thisTarget.parentNode.classList.add("on");
-      
-        if(mode == "all") {
-            render();
-    
-        } else if(mode == "ing") {;
-            for(i=0; i<todoListData.length; i++){
-                if(todoListData[i].isComplete === false) {
-                    filterList.push(todoListData[i])
-                }
+        filterData();
+    }
+}
+
+function filterData() {
+    filterList=[];
+
+    if(mode == "ing") {;
+        for(i=0; i<todoListData.length; i++){
+            if(todoListData[i].isComplete === false) {
+                filterList.push(todoListData[i])
             }
-            render();
-    
-        } else if(mode == "done") {
-            for(i=0; i<todoListData.length; i++){
-                if(todoListData[i].isComplete === true) {
-                    filterList.push(todoListData[i])
-                }
+        }
+
+    } else if(mode == "done") {
+        for(i=0; i<todoListData.length; i++){
+            if(todoListData[i].isComplete === true) {
+                filterList.push(todoListData[i])
             }
-            render();
         }
     }
+
+    render();
 }
