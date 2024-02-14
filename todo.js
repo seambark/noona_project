@@ -31,15 +31,18 @@ let dateString = year + '-' + month  + '-' + day;
 addBtn.addEventListener("click", addList);
 todoList.addEventListener("click", listStatus);
 tab.addEventListener("click", tabList)
-addInput.addEventListener("focus",function(){
-    addInput.value="";
-})
 
 function randomId() {
     return '-' + Math.random().toString(36).substr(2,9);
 }
 
 function addList() {
+    console.log(addInput.value)
+    if(addInput.value == ""){
+        alert("빈값은 등록할 수 없습니다! 할 일을 입력해 주세요!");
+        return;
+    }
+
     let listData = {
         id: randomId(),
         memo : addInput.value,
@@ -48,6 +51,8 @@ function addList() {
     }
     todoListData.push(listData);
     filterData();
+    addInput.value="";
+    addInput.focus();
 }
 
 function render() {

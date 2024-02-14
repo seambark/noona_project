@@ -60,6 +60,7 @@ li {
 .todo_add #add_btn {
     margin-left: 7px;
     vertical-align: top;
+    cursor: pointer;
 }
 
 .todo_list {
@@ -115,6 +116,7 @@ li {
     border-radius: var(--border-radius);
     box-shadow: 0 0 20px 5px rgba(187, 223, 249, 0.8) inset,
     2px 2px 4px 2px rgba(0, 0, 0, 0.1);
+    transition: all 0.1s;
 }
 .memo.complete {
     background-color: var(--memo-complete-bg);
@@ -278,5 +280,11 @@ li {
     }
     #list li {
         width: 50%;
+    }
+}
+@media screen and (min-width: 751px) {
+    .memo:hover,
+    .memo.complete:hover {
+        box-shadow: 0 0 0 5px rgba(0, 117, 255, 0.3) inset;
     }
 }
