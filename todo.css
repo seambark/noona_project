@@ -282,9 +282,9 @@ li {
         width: 50%;
     }
 }
-@media screen and (min-width: 751px) {
+/* @media screen and (min-width: 751px) {
     .memo:hover,
     .memo.complete:hover {
         box-shadow: 0 0 0 5px rgba(0, 117, 255, 0.3) inset;
     }
-}
+} */
