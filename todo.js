@@ -52,7 +52,7 @@ function addList() {
     todoListData.push(listData);
     filterData();
     addInput.value="";
-    addInput.focus();
+    // addInput.focus();
 }
 
 function render() {
