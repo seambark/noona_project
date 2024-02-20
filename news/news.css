@@ -96,6 +96,12 @@ main {
     font-size: 0.8rem;
 }
 
+.no_data {
+    padding: 30px 0 0;
+    color: var(--color-content);
+    text-align: center;
+}
+
 @media screen and (max-width: 1199px) {
     .wrap {
         width: auto;
