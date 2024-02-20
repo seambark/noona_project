@@ -1,5 +1,6 @@
 let newsList = [];
 let myNetlify = "https://noona-study-site.netlify.app";
+let dateMoment = moment();
 
 
 // let noonaNetlify = "http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com";
@@ -29,20 +30,30 @@ const getNewsAPI = async() => {
 // }
 
 const render = () => {
+
+    console.log(dateMoment)
     const newHTML = newsList.map(function(news) {
+        let description = news.description;
+        let resultDescription = '';
+        if (description.length >= 200) {
+            resultDescription = description.substr(0, 200 - 3) + '...';
+        } else {
+            resultDescription = description;
+        }
+      
         return (`<li>
             <div class="news">
                 <div class="img">
-                    <img src="${news.urlToImage}" alt="" />
+                    <img src="${news.urlToImage==''?'이미지 없음':news.urlToImage}" alt="" />
                 </div>
                 <div class="txt">
                     <div class="cont">
                         <strong class="title">${news.title}</strong>
-                        <p>${news.description}</p>
+                        <p>${resultDescription==''?'내용 없음':resultDescription}</p>
                     </div>
                     <div class="source">
-                        <span>${news.source.name}</span>
-                        <span>${news.publishedAt}</span>
+                        <span>${news.source.name==''?'출처 없음':news.source.name}</span>
+                        <span>${moment(news.publishedAt).fromNow()}</span>
                     </div>
                 </div>
             </div>
