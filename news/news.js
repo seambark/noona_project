@@ -3,10 +3,13 @@ let myNetlify = "https://noona-study-site.netlify.app";
 let dateMoment = moment();
 let menu = document.querySelector(".menu");
 let menuList = document.querySelector(".menu ul");
+let search_open_btn = document.querySelector(".search_open_btn");
 let searchInput = document.querySelector("#search_input");
 let inputSet = document.querySelector('.input_set');
 let searchBtn = document.querySelector(".search_btn");
 let resetBtn = document.querySelector(".reset_btn");
+let closeBtn = document.querySelector(".btn_close");
+let openBtn = document.querySelector(".menu_open_btn");
 let paging = document.querySelector(".paging");
 let urlNoImg = "ico_no_pictures.png";
 let category = '';
@@ -21,6 +24,11 @@ searchBtn.addEventListener('click',searchList);
 menuList.addEventListener('click',tabActive);
 resetBtn.addEventListener('click',searchReset);
 
+search_open_btn.addEventListener('click',function(e){
+    let search = e.target.parentNode;
+    search.classList.toggle('active')
+});
+
 searchInput.addEventListener("keyup", function(e) {
     let resetOn = inputSet.classList.contains('on');
  
@@ -28,6 +36,17 @@ searchInput.addEventListener("keyup", function(e) {
         inputSet.classList.add('on');
     }
 });
+
+closeBtn.addEventListener('click',function(e){
+    menu.classList.remove('active');
+});
+
+openBtn.addEventListener('click',function(e){
+    menu.classList.add('active');
+});
+
+
+
 
 function searchReset(e) {
     keyword='';
@@ -45,7 +64,6 @@ const getNewsAPI = async() => {
     newsList = data.articles;
     newsTotal = data.totalResults;
 
-    console.log(newsTotal)
     console.log(newsList)
     
     render();
