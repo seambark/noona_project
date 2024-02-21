@@ -4,7 +4,9 @@ let dateMoment = moment();
 let menu = document.querySelector(".menu");
 let menuList = document.querySelector(".menu ul");
 let searchInput = document.querySelector("#search_input");
+let inputSet = document.querySelector('.input_set');
 let searchBtn = document.querySelector(".search_btn");
+let resetBtn = document.querySelector(".reset_btn");
 let paging = document.querySelector(".paging");
 let urlNoImg = "ico_no_pictures.png";
 let category = '';
@@ -17,12 +19,22 @@ let newsTotal;
 menu.addEventListener('click',categoryList);
 searchBtn.addEventListener('click',searchList);
 menuList.addEventListener('click',tabActive);
+resetBtn.addEventListener('click',searchReset);
 
-searchInput.addEventListener("search", function(event) {
+searchInput.addEventListener("keyup", function(e) {
+    let resetOn = inputSet.classList.contains('on');
+ 
+    if(!resetOn){
+        inputSet.classList.add('on');
+    }
+});
+
+function searchReset(e) {
     keyword='';
     searchInput.value = '';
+    inputSet.classList.remove('on');
     getNewsAPI();
-});
+};
 
 const getNewsAPI = async() => {
     const url = new URL(`${myNetlify}/top-headlines?category=${category}&q=${keyword}&page=${page}&pageSize=${pageSize}`);
