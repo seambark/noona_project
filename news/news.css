@@ -218,12 +218,20 @@ input::-webkit-search-results-decoration {
     .search_set {
         text-align: left;
     }
-    .search_set input {
+    .search_set .input_set {
         width: calc(100% - 56px);
     }
-    .search_set .reset_btn {
-        margin-top: 7px;
-        margin-left: 0;
+    .input_set {
+        display: inline-block;
+        position: relative;
+        height: 35px;
+        width: 50%;
+    }
+    .input_set .reset_btn {
+
+    }
+    .input_set.on .reset_btn {
+       
     }
     /* .menu {
         padding-bottom: 10px;
