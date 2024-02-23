@@ -57,20 +57,37 @@ function searchReset(e) {
 
 const getNewsAPI = async() => {
     const url = new URL(`${myNetlify}/top-headlines?category=${category}&q=${keyword}&page=${page}&pageSize=${pageSize}`);
-    const response = await fetch(url);
-    const data = await response.json();
-    
-    newsList = data.articles;
-    newsTotal = data.totalResults;
 
-    console.log(newsList)
-    
-    render();
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
 
-    if(newsList.length > 0) {
-        let newImg = document.querySelectorAll(".news .img img");
-        ImgCheck(newImg)
+        if(response.status === 200) {
+
+            if(data.articles.length === 0) {
+                throw new Error("관련 뉴스가 없습니다.");
+            }
+
+            newsList = data.articles;
+            newsTotal = data.totalResults;
+            console.log(newsList)
+            render();
+
+            if(newsList.length > 0) {
+                let newImg = document.querySelectorAll(".news .img img");
+                ImgCheck(newImg)
+            }
+
+        } else {
+            throw new Error(data.message)
+        }
+        
+
+    } catch(error) {
+        errorRender(error.message)
     }
+
+    
 
     // pagingEvent()
 }
@@ -85,8 +102,6 @@ function categoryList(e) {
         category = categoryHref == 'all'?'':`${categoryHref}`;
         noDateTxt = thisTarget.innerText;
 
-        // keyword = '';
-
         getNewsAPI();
     }
 }
@@ -96,7 +111,6 @@ function searchList() {
 
     if(inputValue !== '') {
         keyword = `${inputValue}`;
-        // category ='';
         noDateTxt = inputValue;
 
         getNewsAPI();
@@ -107,43 +121,52 @@ function searchList() {
 
 }
 
+// const imgError = (image) => {
+// 	image.onerror = null; // 이미지 에러 핸들러를 중복 호출하지 않도록 이벤트 리스너를 제거합니다.
+// 	image.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU";
+// };
+
+const errorRender = (message) => {
+    let errorHTML = `
+        <li class="no_data">
+            ${keyword!=="" || category !== "" ? `<b>${keyword} ${category}</b>` : ''} ${message}
+        </li>`;
+
+    document.getElementById('news_list').innerHTML = errorHTML;
+}
+
 const render = () => {
-    let listLength = newsList.length;
     let newHTML = ``;
 
-    if(listLength > 0){
-        newHTML = newsList.map(function(news) {
-            let description = news.description;
-            let resultDescription = '';
-            if (description && description.length >= 200) {
-                resultDescription = description.substr(0, 200 - 3) + '...';
-            } else {
-                resultDescription = description;
-            }
-            let resultImg = news.urlToImage;
+    newHTML = newsList.map(function(news) {
+        let description = news.description;
+        let resultDescription = '';
+        if (description && description.length >= 200) {
+            resultDescription = description.substr(0, 200 - 3) + '...';
+        } else {
+            resultDescription = description;
+        }
+        let resultImg = news.urlToImage;
 
-            return (`<li>
-                <div class="news">
-                    <div class="img">
-                        <img src="${resultImg}" alt=""/>
+        return (`<li>
+            <div class="news">
+                <div class="img">
+                    <img src="${resultImg}" alt=""/>
+                </div>
+                <div class="txt">
+                    <div class="cont">
+                        <strong class="title">${news.title}</strong>
+                        <p>${resultDescription == '' || !resultDescription ? '내용 없음' : resultDescription}</p>
                     </div>
-                    <div class="txt">
-                        <div class="cont">
-                            <strong class="title">${news.title}</strong>
-                            <p>${resultDescription == '' || !resultDescription ? '내용 없음' : resultDescription}</p>
-                        </div>
-                        <div class="source">
-                            <span>${news.source.name == '' | !news.source.name ? '출처 없음' : news.source.name}</span>
-                            <span>${moment(news.publishedAt).fromNow()}</span>
-                        </div>
+                    <div class="source">
+                        <span>${news.source.name == '' | !news.source.name ? '출처 없음' : news.source.name}</span>
+                        <span>${moment(news.publishedAt).fromNow()}</span>
                     </div>
                 </div>
-            </li>
-            `
-            )} ).join('');
-    } else {
-        newHTML = `<li class="no_data"><b>${noDateTxt}</b> 관련 뉴스가 없습니다.</li>`;
-    }
+            </div>
+        </li>
+        `
+    )} ).join('');
 
     document.getElementById('news_list').innerHTML = newHTML;
 }

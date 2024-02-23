@@ -21,7 +21,9 @@
 li {
     list-style: none;
 }
-
+body {
+    background-color: #f2f2f2;
+}
 .wrap {
     width: 1200px;
     margin: 0 auto;
@@ -188,7 +190,7 @@ main {
     width: 350px;
     height: 200px;
     border-radius: 0.25em;
-    background-color: #eee;
+    background-color: #e6e6e6;;
 }
 .news .img img {
     display: block;
@@ -222,7 +224,7 @@ main {
 }
 
 .no_data {
-    padding: 30px 0 0;
+    padding: 60px 0 0;
     color: var(--color-content);
     text-align: center;
 }
@@ -336,38 +338,72 @@ input::-webkit-search-results-decoration {
         min-width: 360px;
     }
     header {
+        min-width: 360px;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        padding: 60px 0 5px;
-        background-color: rgba(255,255,255,0.9);
+        padding: 20px 60px 5px;
+        background-color: rgba(242,242,242,0.9);
         z-index: 10;
     }
+    .logo {
+        text-align: left;
+        padding-left: 15px;
+    }
     .logo svg {
-        width: 60%;
-        min-width: 300px;
+        width: 200px;
     }
     .util {
         position: absolute;
-        top: 10px;
-        left: 20px;
+        top: 20px;
+        left: 0;
         width: 100%;
     }
     .search_set {
-        display: inline-block;
         position: initial;
-        width: calc(100% - 80px);
-        margin: 0 0 0 4px;
+        width:100%;
+        margin: 12px 0 0;
         text-align: left;
         vertical-align: top;
+        height: 0;
+        overflow: hidden;
+        background-color: transparent;
+        transition: all 0.5s;
+        padding: 0 20px;
+        border-bottom: 1px solid #ddd;
     }
-
+    .search_set .input_set {
+        margin-top: 5px;
+        margin-left: 1px;
+        height: 35px;
+        transition: none;
+        opacity: inherit;
+    }
+    .search_set .search_btn {
+        margin-top: 5px;
+        width: 50px;
+        font-size: 0.8rem;
+    }
+    .search_set.active {
+        height: 50px;
+        transition: all 0.5s;
+        background-color: rgba(242,242,242,0.9);
+    }
     .search_set.active .input_set {
-        width: calc(100% - 100px);
+         width: calc(100% - 56px);
+         opacity: inherit;
+         
+    }
+    .search_set .search_open_btn {
+        position: absolute;
+        top : 0;
+        right: 20px;
+        margin: 0;
     }
     .menu_open_btn {
         position: relative;
+        left: 20px;
         width: 35px;
         height: 35px;
         border: 0;
@@ -434,7 +470,7 @@ input::-webkit-search-results-decoration {
     }
 
     main {
-        padding-top: 125px;
+        padding-top: 90px;
     }
     .news {
         flex-direction: column;
