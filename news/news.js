@@ -57,7 +57,6 @@ function searchReset(e) {
 
 const getNewsAPI = async() => {
     const url = new URL(`${myNetlify}/top-headlines?category=${category}&q=${keyword}&page=${page}&pageSize=${pageSize}`);
-    decodeURI(url)
     const response = await fetch(url);
     const data = await response.json();
     
@@ -72,6 +71,8 @@ const getNewsAPI = async() => {
         let newImg = document.querySelectorAll(".news .img img");
         ImgCheck(newImg)
     }
+
+    // pagingEvent()
 }
 
 function categoryList(e) {
@@ -185,23 +186,66 @@ tabActive();
 getNewsAPI();
 
 
+// 유저는 5개의 페이지를 한번에 볼 수 있다.
+// 현재 보고있는 페이지는 갈색박스로 표시가 된다.
+// < > 버튼을 통해 다음 페이지로 이동할 수 있다.
+// << >> 버튼을 통해 제일 처음과 제일 끝 페이지로 이동할 수 있다.
+// 첫 페이지 그룹에 있으면 (1~5) <<  <  버튼은 사라진다.
+// 제일 끝 페이지 그룹에 있으면   >  >>  버튼은 사라진다.
+
+// API를 통해서 알수있는정보
+// totalResult : 총 몇개의 결과가 있는지
+// page : 현재 보고있는 페이지
+
+// 우리가 정해야하는 정보
+// pageSize : 한번에 몇개의 데이터를 가져올지, (API문서에서 정한 기본값은 20개이다.)
+// groupSize : 한번에 몇개의 페이지를 페이지네이션에서 보여줄지
+
+// 생각해야 할 점
+// 총 결과의 개수를 가지고 몇개의 페이지가 필요한지 알 수 있을까?
+// 현재 페이지를 가지고 몇번째 페이지 그룹인지 어떻게 알 수 있을까?
+// 페이지 그룹번호를 가지고 어떻게 그 그룹의 마지막 페이지와 첫번째 페이지를 알 수 있을까?
+
 
 // paging.addEventListener('click',pagingEvent);
 
-// function pagingEvent(currentPage) {
+// function pagingEvent() {
 //     console.log(this)
 //     let pagingTotal = Math.ceil(newsTotal/10);
-//     let pageGroup = Math.ceil(currentPage/5);
+//     let pageGroup = Math.ceil(page/5);
 
-//     let last = pageGroup*5;
+//     let last = pageGroup * 5;
 //     if(last > pagingTotal) {
-//         last = pagingTotal
+//         last = pagingTotal;
 //     }
-//     let first = last - (5-1) <=0?1:last-(5-1);
+//     let first = last - (5 - 1) <= 0 ? 1 : last - (5 - 1);
+//     let next = last + 1;
+//     let prev = first - 1;
 
 //     console.log(pagingTotal)
 //     console.log(pageGroup)
-//     console.log(last)
-//     console.log(first)
+//     console.log(next)
+//     console.log(prev)
+
+//     pagingRender(first,last)
 
 // }
+
+// function pagingRender(start,end) {
+//     let newPageHtML = [];
+    
+//     console.log(start)
+//     console.log(end)
+    
+//     for(i=start; i <= end; i++) {
+//         newPageHtML.push(`<a href="#">${i}</a>`);
+
+//         if(i == end){
+//             document.querySelector('.page').innerHTML = newPageHtML.join('');
+//         }
+//     }
+
+//    console.log(newPageHtML)
+    
+// }
+
