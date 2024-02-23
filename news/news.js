@@ -16,13 +16,21 @@ let category = '';
 let noDateTxt = '';
 let keyword = '';
 let page = 1;
-let pageSize = 10;
-let newsTotal;
+let totalResults = 0;
+const pageSize = 10;
+const groupSize = 5;
+let prevBtn = document.querySelector(".prev");
+let nextBtn = document.querySelector(".next");
+let lastBtn = document.querySelector(".last");
+let firstBtn = document.querySelector(".first");
+
+
 
 menu.addEventListener('click',categoryList);
 searchBtn.addEventListener('click',searchList);
 menuList.addEventListener('click',tabActive);
 resetBtn.addEventListener('click',searchReset);
+paging.addEventListener('click',pageEvent);
 
 search_open_btn.addEventListener('click',function(e){
     let search = e.target.parentNode;
@@ -46,12 +54,11 @@ openBtn.addEventListener('click',function(e){
 });
 
 
-
-
 function searchReset(e) {
     keyword='';
     searchInput.value = '';
     inputSet.classList.remove('on');
+    page = 1;
     getNewsAPI();
 };
 
@@ -69,14 +76,14 @@ const getNewsAPI = async() => {
             }
 
             newsList = data.articles;
-            newsTotal = data.totalResults;
-            console.log(newsList)
-            render();
+            totalResults = data.totalResults;
+            console.log(totalResults)
 
-            if(newsList.length > 0) {
-                let newImg = document.querySelectorAll(".news .img img");
-                ImgCheck(newImg)
-            }
+            render();
+            pagination();
+            
+            let newImg = document.querySelectorAll(".news .img img");
+            ImgCheck(newImg)
 
         } else {
             throw new Error(data.message)
@@ -89,7 +96,7 @@ const getNewsAPI = async() => {
 
     
 
-    // pagingEvent()
+    
 }
 
 function categoryList(e) {
@@ -101,6 +108,7 @@ function categoryList(e) {
         let categoryHref = thisTarget.getAttribute('href');
         category = categoryHref == 'all'?'':`${categoryHref}`;
         noDateTxt = thisTarget.innerText;
+        page = 1;
 
         getNewsAPI();
     }
@@ -112,6 +120,7 @@ function searchList() {
     if(inputValue !== '') {
         keyword = `${inputValue}`;
         noDateTxt = inputValue;
+        page = 1;
 
         getNewsAPI();
 
@@ -121,11 +130,6 @@ function searchList() {
 
 }
 
-// const imgError = (image) => {
-// 	image.onerror = null; // 이미지 에러 핸들러를 중복 호출하지 않도록 이벤트 리스너를 제거합니다.
-// 	image.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU";
-// };
-
 const errorRender = (message) => {
     let errorHTML = `
         <li class="no_data">
@@ -133,6 +137,7 @@ const errorRender = (message) => {
         </li>`;
 
     document.getElementById('news_list').innerHTML = errorHTML;
+    paging.innerHTML = ``;
 }
 
 const render = () => {
@@ -205,70 +210,58 @@ function tabActive(e) {
 }
 
 tabActive();
-
 getNewsAPI();
 
 
-// 유저는 5개의 페이지를 한번에 볼 수 있다.
-// 현재 보고있는 페이지는 갈색박스로 표시가 된다.
-// < > 버튼을 통해 다음 페이지로 이동할 수 있다.
-// << >> 버튼을 통해 제일 처음과 제일 끝 페이지로 이동할 수 있다.
-// 첫 페이지 그룹에 있으면 (1~5) <<  <  버튼은 사라진다.
-// 제일 끝 페이지 그룹에 있으면   >  >>  버튼은 사라진다.
-
-// API를 통해서 알수있는정보
-// totalResult : 총 몇개의 결과가 있는지
-// page : 현재 보고있는 페이지
-
-// 우리가 정해야하는 정보
-// pageSize : 한번에 몇개의 데이터를 가져올지, (API문서에서 정한 기본값은 20개이다.)
-// groupSize : 한번에 몇개의 페이지를 페이지네이션에서 보여줄지
-
-// 생각해야 할 점
-// 총 결과의 개수를 가지고 몇개의 페이지가 필요한지 알 수 있을까?
-// 현재 페이지를 가지고 몇번째 페이지 그룹인지 어떻게 알 수 있을까?
-// 페이지 그룹번호를 가지고 어떻게 그 그룹의 마지막 페이지와 첫번째 페이지를 알 수 있을까?
 
 
-// paging.addEventListener('click',pagingEvent);
+function pagination() {
+    let newPageHTML = ``;
+    let totalPages = Math.ceil(totalResults/pageSize);
+    let pageGroup = Math.ceil(page/groupSize);
 
-// function pagingEvent() {
-//     console.log(this)
-//     let pagingTotal = Math.ceil(newsTotal/10);
-//     let pageGroup = Math.ceil(page/5);
+    let last = pageGroup * groupSize;
 
-//     let last = pageGroup * 5;
-//     if(last > pagingTotal) {
-//         last = pagingTotal;
-//     }
-//     let first = last - (5 - 1) <= 0 ? 1 : last - (5 - 1);
-//     let next = last + 1;
-//     let prev = first - 1;
+    if(last > totalPages) {
+        last = totalPages;
+    }
 
-//     console.log(pagingTotal)
-//     console.log(pageGroup)
-//     console.log(next)
-//     console.log(prev)
+    let first = last - (groupSize - 1) <= 0 ? 1 : last - (groupSize - 1);
+    let prev = Number(page) - 1;
+    let next = Number(page) + 1;
 
-//     pagingRender(first,last)
+    if(first !== 1) {
+        newPageHTML+=`<button data-page="1" class="btn first">맨 처음</button>`;
+    }
 
-// }
+    if(prev > 0) {
+        newPageHTML+=`<button data-page="${prev}" class="btn prev">이전</button>`;
+    }
 
-// function pagingRender(start,end) {
-//     let newPageHtML = [];
-    
-//     console.log(start)
-//     console.log(end)
-    
-//     for(i=start; i <= end; i++) {
-//         newPageHtML.push(`<a href="#">${i}</a>`);
 
-//         if(i == end){
-//             document.querySelector('.page').innerHTML = newPageHtML.join('');
-//         }
-//     }
+    for(i=first; i <= last; i++) {
+        newPageHTML+=`<a data-page="${i}" class=${i==page? 'on' : ''}>${i}</a>`;
+    }
 
-//    console.log(newPageHtML)
-    
-// }
+    if(next <= totalPages) {
+        newPageHTML+=`<button data-page="${next}" class="btn next">다음</button>`;
+    }
+
+    if(last !== totalPages) {
+        newPageHTML+=`<button data-page="${totalPages}" class="btn last">맨 마지막</button>`;
+    }
+
+    paging.innerHTML = newPageHTML;
+}
+
+function pageEvent(e) {
+    e.preventDefault();
+
+    let targetTag = e.target;
+    let pageNumber = targetTag.dataset.page;
+
+    page = pageNumber;
+
+    getNewsAPI()
+}
 

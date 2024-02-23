@@ -21,6 +21,11 @@
 li {
     list-style: none;
 }
+input {
+    height: 35px;
+    padding: 0 20px;
+    color: var(--color-content);
+}
 body {
     background-color: #f2f2f2;
 }
@@ -66,23 +71,35 @@ header {
 }
 
 /* 검색 */
-.search_set.active .input_set {
-    visibility: visible;
-    opacity: 1;
-    width: 50%;
+.search_set {
+    display: flex;
+    position: absolute;
+    top: 20px;
+    left: 0;
 }
-.search_set.active .search_btn {
+.search {
+    overflow: hidden;
+    display: flex;
+    visibility: hidden;
+    width: 0;
+    opacity: 0;
+    transition: all 0.5s;
+}
+.active .search {
     visibility: visible;
+    width: 250px;
     opacity: 1;
 }
 .search_set .search_open_btn {
     position: relative;
-    height: 35px;
     width: 35px;
+    height: 35px;
     margin: 0 5px 0 0;
+    border: 0;
     border-radius: 0.25rem;
     background-color: transparent;
-    border: 0;
+    vertical-align: top;
+    cursor: pointer;
 }
 .icon_search {
     position: absolute;
@@ -108,67 +125,54 @@ header {
     transform: rotate(131deg);
     
 }
-.search_set {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 30%;
-    height: 35px;
-    margin: 20px 0 20px;
-    font-size: 0;
-}
-
-.input_set {
-    visibility: hidden;
-    display: inline-block;
+.search .input_set {
     position: relative;
-    height: 100%;
-    width: 0;
-    opacity: 0;
-    transition: all 0.5s;
+    display: inline-block;
+    flex-grow: 1;
 }
-.input_set .reset_btn {
-    visibility: hidden;
+.search .input_set input {
+    width: 100%;
+    padding: 0;
     opacity: 0;
+    vertical-align: top;
+}
+.active .search .input_set input {
+    padding: 0 35px 0 15px;
+    opacity: 1;
+}
+.search .input_set .reset_btn {
+    visibility: hidden;
     position: absolute;
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
     width: 25px;
     height: 23px;
-    padding: 0;
     margin-left: 0;
+    padding: 0;
     border: 0;
     border-radius: 50%;
     background-color: #9bb0ff;
     color: #fff;
     font-weight: bold;
+    opacity: 0;
     transition: all 0.1s;
+    cursor: pointer;
 }
-.input_set.on .reset_btn {
+.search .input_set.on .reset_btn {
     visibility: visible;
     opacity: 1;
 }
-.search_btn {
-    visibility: hidden;
-    opacity: 0;
-}
-
-.search_set input {
-    height: 100%;
-    width: 100%;
-    padding: 0 20px 0 10px;
-    vertical-align: top;
-    color: var(--color-content);
-}
-.search_set button {
+.search .search_btn {
+    flex-shrink: 0;
+    width: 51px;
     height: 35px;
     margin-left: 5px;
     padding: 5px 10px;
     vertical-align: top;
     color: var(--color-content);
     cursor: pointer;
-}
+} 
 
 main {
     padding-top: 20px;
@@ -238,12 +242,13 @@ main {
 .paging button {
     display: inline-block;
     vertical-align: top;
+    cursor: pointer;
 }
 .paging .page {
     padding: 0 10px;
     vertical-align: top;
 }
-.paging .page a {
+.paging a:not(.btn) {
     width: 30px;
     height: 30px;
     margin-left: 7px;
@@ -254,23 +259,19 @@ main {
     font-size: 1rem;
     line-height: 1.2rem;
 }
-.paging .page a:first-of-type {
+.paging a:first-of-type:not(.btn) {
     margin-left: 0;
 }
-.paging .page a.on {
+.paging a.on:not(.btn) {
     background-color: #aaa;
     color: #f1f1f1;
     font-weight: bold;
 }
-.paging .page a:hover {
+.paging a:not(.btn):hover {
     background-color: #aaa;
     color: #f1f1f1;
     font-weight: bold;
 }
-.paging button {
-
-}
-
 .btn {
     position: relative;
     width: 25px;
@@ -301,6 +302,7 @@ main {
     transform: translate(-50%,-50%) scale(-0.7, 0.7);
 }
 .prev {
+    margin-right: 5px;
     margin-left: 5px;
 }
 .prev::before{
@@ -309,6 +311,7 @@ main {
 }
 .next {
     margin-right: 5px;
+    margin-left: 5px;
 }
 .next::before {
     right: 30%;
@@ -343,66 +346,66 @@ input::-webkit-search-results-decoration {
         top: 0;
         left: 0;
         width: 100%;
-        padding: 20px 60px 5px;
+        padding: 20px 0 10px;
+        border-bottom: 1px solid #ddd;
         background-color: rgba(242,242,242,0.9);
         z-index: 10;
     }
     .logo {
         text-align: left;
-        padding-left: 15px;
+        padding-left: 65px;
     }
     .logo svg {
         width: 200px;
     }
-    .util {
-        position: absolute;
-        top: 20px;
-        left: 0;
-        width: 100%;
-    }
+
     .search_set {
         position: initial;
-        width:100%;
-        margin: 12px 0 0;
+        display: inherit;
+        /* width:100%; */
+        /* margin: 0;
         text-align: left;
         vertical-align: top;
         height: 0;
         overflow: hidden;
         background-color: transparent;
         transition: all 0.5s;
-        padding: 0 20px;
-        border-bottom: 1px solid #ddd;
-    }
-    .search_set .input_set {
-        margin-top: 5px;
-        margin-left: 1px;
-        height: 35px;
-        transition: none;
-        opacity: inherit;
-    }
-    .search_set .search_btn {
-        margin-top: 5px;
-        width: 50px;
-        font-size: 0.8rem;
-    }
-    .search_set.active {
-        height: 50px;
-        transition: all 0.5s;
-        background-color: rgba(242,242,242,0.9);
-    }
-    .search_set.active .input_set {
-         width: calc(100% - 56px);
-         opacity: inherit;
-         
+        padding: 0 20px; */
     }
     .search_set .search_open_btn {
         position: absolute;
-        top : 0;
+        top: 20px;
         right: 20px;
         margin: 0;
     }
+    .search_set .search {
+        width: 100%;
+        height: 0;
+        padding: 0 20px;
+        transition: all 0.5s;
+        align-items: flex-end;
+    }
+    .search_set.active .search {
+        width: 100%;
+        height: 45px;
+    }
+    .input_set {
+        padding-left: 1px;
+    }
+    .search .search_btn {
+        overflow: hidden;
+
+        opacity: 0;
+        transition: all 0.3s;
+    }
+    .active .search .search_btn {
+        color: var(--color-content);
+        opacity: 1;
+    }
+ 
     .menu_open_btn {
-        position: relative;
+        position: absolute;
+        top: 20px;
         left: 20px;
         width: 35px;
         height: 35px;
