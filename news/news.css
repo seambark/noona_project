@@ -47,28 +47,56 @@ header {
     width: 450px;
     height: auto;
 }
+
+/* 메뉴 */
 .menu {
-    padding-bottom: 10px;
+    margin-top: 20px;
+    padding-bottom: 0;
+    border-bottom: 3px double var(--color-primary);
+    background-color: #00000014;
 }
 .menu ul {
     display: flex;
     justify-content: center;
 }
-.menu .on a {
-    border-radius: 0.25em;
-    background-color: #9bb0ff;
-    color: #f1f1f1;
-    /* font-weight: bold; */
-}
 .menu a {
     display: inline-block;
     padding: 15px 10px;
+    border-width: 0 3px 0 3px;
+    border-style: double;
+    border-color: transparent;
     color: var(--color-content);
+    font-weight: bold;
     text-decoration: none;
 }
-.menu {
-    border-bottom: 3px double var(--color-primary);
+.menu .on a {
+    position: relative;
+    border-color: var(--color-primary);
+    background-color: var(--color-content);
+    color: #f1f1f1;
 }
+.menu .on a::after {
+    position: absolute;
+    bottom: -2px;
+    left: -2px;
+    content: '';
+    width: calc(100% + 5px);
+    height: 3px;
+    background-color: var(--color-content);
+}
+.menu .on a::before {
+    position: absolute;
+    left: -3px;
+    top: -3px;
+    content: '';
+    width: 100%;
+    height: 1px;
+    border-width: 3px 3px 0 3px;
+    border-style: double;
+    background-color: #00000014;
+    border-color: var(--color-primary);
+}
+
 
 /* 검색 */
 .search_set {
@@ -101,6 +129,64 @@ header {
     vertical-align: top;
     cursor: pointer;
 }
+/* .search_set .search_open_btn::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 8px;
+    left: 4px;
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-util);
+    box-shadow: 4px -0 0 var(--color-util),
+
+    4px -4px 0 var(--color-util),
+    8px -4px 0 var(--color-util),
+
+    8px -8px 0 var(--color-util),
+    12px -8px 0 var(--color-util),
+    16px -8px 0 var(--color-util),
+    20px -8px 0 var(--color-util),
+
+    20px -4px 0 var(--color-util),
+    24px -4px 0 var(--color-util),
+    24px -0 0 var(--color-util),
+    28px 0 0 var(--color-util),
+
+    28px 4px 0 var(--color-util),
+    28px 8px 0 var(--color-util),
+    28px 12px 0 var(--color-util),
+
+    24px 12px 0 var(--color-util),
+    24px 16px 0 var(--color-util),
+    20px 16px 0 var(--color-util),
+
+    20px 20px 0 var(--color-util),
+    16px 20px 0 var(--color-util),
+    12px 20px 0 var(--color-util),
+    8px 20px 0 var(--color-util),
+
+    8px 16px 0 var(--color-util),
+    4px 16px 0 var(--color-util),
+    4px 12px 0 var(--color-util),
+
+    0 12px 0 var(--color-util),
+    0 8px 0 var(--color-util),
+    0 4px 0 var(--color-util),
+
+    28px 20px 0 var(--color-util),
+    30px 22px 0 var(--color-util),
+    30px 24px 0 var(--color-util),
+    32px 22px 0 var(--color-util),
+
+    36px 25px 0 var(--color-util),
+    32px 28px 0 var(--color-util),
+    34px 26px 0 var(--color-util),
+    38px 28px 0 var(--color-util),
+    36px 30px 0 var(--color-util),
+    38px 30px 0 var(--color-util);
+    transform: scale(0.7);
+} */
 .icon_search {
     position: absolute;
     display: inline-block;
@@ -169,8 +255,11 @@ header {
     height: 35px;
     margin-left: 5px;
     padding: 5px 10px;
-    vertical-align: top;
+    border: 1px solid var(--color-content);
+    border-radius: 0.2rem;
+    background-color: #00000014;
     color: var(--color-content);
+    vertical-align: top;
     cursor: pointer;
 } 
 
@@ -253,24 +342,20 @@ main {
     height: 30px;
     margin-left: 7px;
     padding: 5px 2px;
-    border-radius: 0.25em;
+    border: 3px double transparent;
     color: var(--color-content);
     text-decoration: none;
     font-size: 1rem;
-    line-height: 1.2rem;
+    line-height: 0.8rem;
+    font-weight: bold;
 }
 .paging a:first-of-type:not(.btn) {
     margin-left: 0;
 }
 .paging a.on:not(.btn) {
-    background-color: #aaa;
+    border-color: var(--color-primary);
+    background-color: var(--color-content);
     color: #f1f1f1;
-    font-weight: bold;
-}
-.paging a:not(.btn):hover {
-    background-color: #aaa;
-    color: #f1f1f1;
-    font-weight: bold;
 }
 .btn {
     position: relative;
@@ -280,7 +365,7 @@ main {
     border: 0;
     color: transparent;
     font-size: 0;
-    background-color: #ededed;
+    background-color: #00000014;
 }
 .btn::before {
     position: absolute;
@@ -334,6 +419,16 @@ input::-webkit-search-results-decoration {
     display: none;
 }
 
+@media screen and (min-width: 1200px) {
+    .paging a:not(.btn):hover {
+        background-color: #c2c2c2;
+        color: #f1f1f1;
+        
+    }
+    .btn:hover {
+        background-color: #c2c2c2;
+    }
+}
 
 @media screen and (max-width: 1199px) {
     .wrap {
@@ -427,9 +522,12 @@ input::-webkit-search-results-decoration {
         left: 0;
         width: 0;
         height: 100%;
+        margin : 0;
         padding-top: 45px;
-        border: 0;
-        background-color: rgba(0,0,0,0.85);
+        border-width: 0 3px 0 0;
+        border-style: double;
+        border-color: var(--color-primary);
+        background-color: rgba(228, 228, 228, 0.9);
         opacity: 0;
         transition: all 0.5s;
     }
@@ -441,14 +539,27 @@ input::-webkit-search-results-decoration {
     .menu ul {
         flex-direction: column;
     }
-    .menu .on a {
-        border-radius: 0;
-    }
     .menu a {
         width: 100%;
         padding: 15px 15px 15px 25px;
+        border-width: 3px 0 3px 0;
         font-size: 1.2rem;
-        color: #d3d3d3;
+    }
+    .menu .on a {
+        border-width: 3px 0 3px 0;
+    }
+    .menu .on a::after {
+        bottom: -3px;
+        left: inherit;
+        right: -3px;
+        height: 100%;
+        width: 3px;
+        border-width: 3px 3px 3px 0;
+        border-style: double;
+        border-color: var(--color-primary);
+    }
+    .menu .on a::before {
+        display: none;
     }
     .menu_open_btn {
         display: inline-block;
@@ -462,13 +573,14 @@ input::-webkit-search-results-decoration {
         padding: 10px 20px 2px;
         background: transparent;
         border: 0;
-        color: #fff;
+        color: var(--color-content);
         font-size: 1.7rem;
+        font-weight: bold;
         cursor: pointer;
     }
 
     main {
-        padding-top: 90px;
+        padding-top: 100px;
     }
     .news {
         flex-direction: column;

@@ -63,7 +63,7 @@ function searchReset(e) {
 };
 
 const getNewsAPI = async() => {
-    const url = new URL(`${myNetlify}/top-headlines?category=${category}&q=${keyword}&page=${page}&pageSize=${pageSize}`);
+    let url = new URL(`${myNetlify}/top-headlines?category=${category}&q=${keyword}&page=${page}&pageSize=${pageSize}`);
 
     try {
         const response = await fetch(url);
