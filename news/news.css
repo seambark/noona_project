@@ -356,21 +356,14 @@ input::-webkit-search-results-decoration {
         padding-left: 65px;
     }
     .logo svg {
+        margin-top: 7px;
+        vertical-align: top;
         width: 200px;
     }
 
     .search_set {
         position: initial;
         display: inherit;
-        /* width:100%; */
-        /* margin: 0;
-        text-align: left;
-        vertical-align: top;
-        height: 0;
-        overflow: hidden;
-        background-color: transparent;
-        transition: all 0.5s;
-        padding: 0 20px; */
     }
     .search_set .search_open_btn {
         position: absolute;
@@ -381,13 +374,14 @@ input::-webkit-search-results-decoration {
     .search_set .search {
         width: 100%;
         height: 0;
+        margin-top: 7px;
         padding: 0 20px;
         transition: all 0.5s;
         align-items: flex-end;
     }
     .search_set.active .search {
         width: 100%;
-        height: 45px;
+        height: 35px;
     }
     .input_set {
         padding-left: 1px;
