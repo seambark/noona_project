@@ -136,6 +136,7 @@ const errorRender = (message) => {
             ${keyword!=="" || category !== "" ? `<b>${keyword} ${category}</b>` : ''} ${message}
         </li>`;
 
+    page = 1;
     document.getElementById('news_list').innerHTML = errorHTML;
     paging.innerHTML = ``;
 }

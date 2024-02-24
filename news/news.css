@@ -72,7 +72,7 @@ header {
 .menu .on a {
     position: relative;
     border-color: var(--color-primary);
-    background-color: var(--color-content);
+    background-color: #9bb0ff;
     color: #f1f1f1;
 }
 .menu .on a::after {
@@ -80,9 +80,9 @@ header {
     bottom: -2px;
     left: -2px;
     content: '';
-    width: calc(100% + 5px);
+    width: calc(100% + 4px);
     height: 3px;
-    background-color: var(--color-content);
+    background-color: #9bb0ff;
 }
 .menu .on a::before {
     position: absolute;
@@ -255,10 +255,10 @@ header {
     height: 35px;
     margin-left: 5px;
     padding: 5px 10px;
-    border: 1px solid var(--color-content);
+    border: 2px double var(--color-content);
     border-radius: 0.2rem;
     background-color: #00000014;
-    color: var(--color-content);
+    color: #353535;
     vertical-align: top;
     cursor: pointer;
 } 
@@ -273,6 +273,8 @@ main {
 }
 #news_list li {
     margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #ddd;
 }
 #news_list li:last-child {
     margin-bottom: 0;
@@ -316,10 +318,11 @@ main {
     font-size: 0.8rem;
 }
 
-.no_data {
+#news_list .no_data {
     padding: 60px 0 0;
     color: var(--color-content);
     text-align: center;
+    border-bottom: 0;
 }
 
 .paging {
@@ -353,8 +356,8 @@ main {
     margin-left: 0;
 }
 .paging a.on:not(.btn) {
-    border-color: var(--color-primary);
-    background-color: var(--color-content);
+    border-color: var(--color-content);
+    background-color:#9bb0ff;
     color: #f1f1f1;
 }
 .btn {
@@ -427,6 +430,18 @@ input::-webkit-search-results-decoration {
     }
     .btn:hover {
         background-color: #c2c2c2;
+    }
+
+    .search_open_btn:hover .icon_search {
+        border-color: #9bb0ff;
+    }
+    .search_open_btn:hover .icon_search::after {
+        background-color: #9bb0ff;
+    }
+
+    .search .search_btn:hover {
+        background-color: #9bb0ff;
+        color: #fff;
     }
 }
 
